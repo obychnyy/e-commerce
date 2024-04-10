@@ -2,3 +2,4 @@
 /.venv
 .idea
 .coverage
+workspace.xml
