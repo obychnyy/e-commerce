@@ -15,11 +15,6 @@ def test_product(product_sapog):
     assert product_sapog.products_count == 1
 
 
-"""@pytest.fixture
-def test_categories_count():
-    return classes.Category(categories_count = 1)"""
-
-
 @pytest.fixture
 def category_obuv():
     return classes.Category('obuv', 'on your feet', ['1', '2'])
