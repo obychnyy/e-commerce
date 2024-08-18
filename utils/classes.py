@@ -19,7 +19,7 @@ class Category:
     def add_product(self, NewProduct):
         self.__products.append(NewProduct)
 
-
+    @property
     def printered(self):
         for i in self.__products:
             self.out += (f"{i.name}, {i.price}руб. Остаток: {i.availability}шт." + "\n")
@@ -40,9 +40,9 @@ class Product:
         self.availability = availability
         Product.products_count += 1
 
-    def make_new_product(self, info):
+    """def make_new_product(self, info):
         print('Введите название товара')
-        {}['name'] = input()
+        {}['name'] = input()"""
 
 
     @property
