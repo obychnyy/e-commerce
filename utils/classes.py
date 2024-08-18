@@ -1,3 +1,6 @@
+import setter
+
+
 class Category:
     name: str
     description: str
@@ -37,13 +40,17 @@ class Product:
         self.availability = availability
         Product.products_count += 1
 
+    def make_new_product(self, info):
+        print('Введите название товара')
+        {}['name'] = input()
+
 
     @property
-    def get_price(self):
+    def price(self):
         return self.price
 
-    @get_price.setter
-    def set_price(self, price):
+    @price.setter
+    def price(self, price):
         confirm = ""
         if price > 0:
             if self.price > price:
@@ -56,4 +63,4 @@ class Product:
                 self.price = price
         else:
             print('Вы уверены, что это цена?')
-        return self.price
+
