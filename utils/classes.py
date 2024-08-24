@@ -32,6 +32,7 @@ class Product:
     price: float
     availability: int
     products_count = 0
+    product_data: dict
 
     def __init__(self, name, description, price, availability):
         self.name = name
@@ -40,10 +41,9 @@ class Product:
         self.availability = availability
         Product.products_count += 1
 
-    """def make_new_product(self, info):
-        print('Введите название товара')
-        {}['name'] = input()"""
-
+    @classmethod
+    def new_product(cls, product_data):
+        return cls(**product_data)
 
     @property
     def price(self):
