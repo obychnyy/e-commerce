@@ -43,7 +43,8 @@ class Product:
 
     @classmethod
     def new_product(cls, product_data):
-        return cls(**product_data)
+        name, description, price, availability = product_data.split(', ')
+        return cls(name, description, price, availability)
 
     @property
     def price(self):
