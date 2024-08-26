@@ -42,9 +42,8 @@ class Product:
         Product.products_count += 1
 
     @classmethod
-    def new_product(cls, product_data):
-        name, description, price, availability = product_data.split(', ')
-        return cls(name, description, price, availability)
+    def new_product(cls, product_data: dict):
+        return cls(**product_data)
 
     @property
     def price(self):
