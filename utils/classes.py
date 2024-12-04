@@ -7,6 +7,7 @@ class Category:
     products: list
     out: str
     categories_count = 0
+    products_count = 0
 
     def __init__(self, name, description):
         self.name = name
@@ -14,10 +15,12 @@ class Category:
         self.__products = []
         self.out = ""
         Category.categories_count += 1
+        Category.__products_count = products_count
 
 
     def add_product(self, NewProduct):
         self.__products.append(NewProduct)
+        Category.products_count = len(self.products)
 
     @property
     def printered(self):
@@ -31,7 +34,6 @@ class Product:
     description: str
     price: float
     availability: int
-    products_count = 0
     product_data: dict
 
     def __init__(self, name, description, price, availability):
@@ -39,7 +41,6 @@ class Product:
         self.description = description
         self.price = price
         self.availability = availability
-        Product.products_count += 1
 
     @classmethod
     def new_product(cls, product_data: dict):
