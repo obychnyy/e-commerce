@@ -8,6 +8,7 @@ class Category:
     out: str
     categories_count = 0
     products_count = 0
+    quantity = 0
 
     def __init__(self, name, description):
         self.name = name
@@ -15,18 +16,20 @@ class Category:
         self.__products = []
         self.out = ""
         Category.categories_count += 1
-        Category.__products_count = products_count
 
+    def __str__(self):
+        return f'{self.name}, количество продуктов: {self.quantity}'
 
     def add_product(self, NewProduct):
         self.__products.append(NewProduct)
-        Category.products_count = len(self.products)
+        self.products_count = len(self.products)
+        self.quantity += NewProduct.availability
 
-    @property
+"""    @property
     def printered(self):
         for i in self.__products:
             self.out += (f"{i.name}, {i.price}руб. Остаток: {i.availability}шт." + "\n")
-        return self.out
+        return self.out"""
 
 
 class Product:
@@ -41,6 +44,12 @@ class Product:
         self.description = description
         self.price = price
         self.availability = availability
+
+    def __str__(self):
+        return f'{self.name}, {self.price} руб. Остаток: {self.availability}'
+
+    def __add__(self, other):
+        return (self.price * self.availability) + (other.price * other.availability)
 
     @classmethod
     def new_product(cls, product_data: dict):
@@ -64,4 +73,3 @@ class Product:
                 self.price = price
         else:
             print('Вы уверены, что это цена?')
-
