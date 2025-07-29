@@ -21,9 +21,10 @@ class Category:
         return f'{self.name} - общее количество продуктов: {self.quantity}'
 
     def add_product(self, NewProduct):
-        self.products.append(NewProduct)
-        self.products_count = len(self.products)
-        self.quantity += NewProduct.availability
+        if isinstance(NewProduct, LawnGrass) or isinstance(NewProduct, Smartphone) or isinstance(NewProduct, Product):
+            self.products.append(NewProduct)
+            self.products_count = len(self.products)
+            self.quantity += NewProduct.availability
 
 """    @property
     def printered(self):
@@ -50,6 +51,8 @@ class Product:
         return f'{self.name}, {self.price} руб. Остаток: {self.availability} шт.'
 
     def __add__(self, other):
+        if type(self) != type(other):
+            raise TypeError("Нельзя складывать товары разных видов")
         return (self.price * self.availability) + (other.price * other.availability)
 
     @classmethod
@@ -72,3 +75,19 @@ class Product:
             if not self._confirm_lower_price:
                 raise ValueError("Требуется подтверждение понижения цены")
         self.price = new_price
+
+
+class Smartphone(Product):
+    def __init__(self, efficiency, model, memory, color):
+        super().__init__(efficiency, model, memory, color)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+class LawnGrass(Product):
+    def __init__(self, country, germination_period, color):
+        super().__init__(self, country, germination_period, color)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
