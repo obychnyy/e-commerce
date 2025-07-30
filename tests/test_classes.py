@@ -101,3 +101,4 @@ def test_add_product_invalid_type(category):
     with pytest.raises(TypeError) as excinfo:
         category.add_product(SomeObject())
     assert str(excinfo.value) == "Можно добавлять только объекты класса Product или его подклассов"
+
