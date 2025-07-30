@@ -25,6 +25,8 @@ class Category:
             self.products.append(NewProduct)
             self.products_count = len(self.products)
             self.quantity += NewProduct.availability
+        else:
+            raise TypeError('Можно добавлять только объекты класса Product или его подклассов')
 
 """    @property
     def printered(self):
@@ -78,16 +80,17 @@ class Product:
 
 
 class Smartphone(Product):
-    def __init__(self, efficiency, model, memory, color):
-        super().__init__(efficiency, model, memory, color)
+    def __init__(self, efficiency, model, memory, color, name, description, price, availability):
+        super().__init__(name, description, price, availability)
         self.efficiency = efficiency
         self.model = model
         self.memory = memory
         self.color = color
 
+
 class LawnGrass(Product):
-    def __init__(self, country, germination_period, color):
-        super().__init__(self, country, germination_period, color)
+    def __init__(self, country, germination_period, color, name, description, price, availability):
+        super().__init__(name, description, price, availability)
         self.country = country
         self.germination_period = germination_period
         self.color = color

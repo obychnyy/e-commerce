@@ -53,3 +53,51 @@ def test_category(category_obuv):
 
 """def test_product_reprice(reprice_sapog):
     assert reprice_sapog.out == '11,99'"""
+
+@pytest.fixture
+def product_smartphone():
+    return classes.Smartphone(50, '15 pro', 512, 'black', 'iphone', 'flagman', 100000, 7)
+
+@pytest.fixture
+def product_grass():
+    return classes.LawnGrass('Greenland', 72, 'juicy green', 'some grass', 'the greener than the neighbors', 500, 432)
+def test_subclasses(product_smartphone, product_grass):
+    assert product_smartphone.color == 'black'
+    assert product_smartphone.memory == 512
+    assert product_smartphone.efficiency == 50
+    assert product_smartphone.model == '15 pro'
+    assert product_grass.country == 'Greenland'
+    assert product_grass.color == 'juicy green'
+    assert product_grass.germination_period == 72
+
+def test_summary(product_smartphone, product_grass):
+    with pytest.raises(TypeError):
+        product_smartphone.__add__(product_smartphone, product_grass)
+
+@pytest.fixture
+def category():
+    return classes.Category("Тестовая категория", "Описание категории")
+
+class SomeObject:
+    pass
+
+def test_add_product_invalid_type(category):
+    with pytest.raises(TypeError) as excinfo:
+        category.add_product("Это не продукт")
+    assert str(excinfo.value) == "Можно добавлять только объекты класса Product или его подклассов"
+
+    with pytest.raises(TypeError) as excinfo:
+        category.add_product(123)
+    assert str(excinfo.value) == "Можно добавлять только объекты класса Product или его подклассов"
+
+    with pytest.raises(TypeError) as excinfo:
+        category.add_product([1, 2, 3])
+    assert str(excinfo.value) == "Можно добавлять только объекты класса Product или его подклассов"
+
+    with pytest.raises(TypeError) as excinfo:
+        category.add_product({'name': 'test'})
+    assert str(excinfo.value) == "Можно добавлять только объекты класса Product или его подклассов"
+
+    with pytest.raises(TypeError) as excinfo:
+        category.add_product(SomeObject())
+    assert str(excinfo.value) == "Можно добавлять только объекты класса Product или его подклассов"
