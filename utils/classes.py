@@ -1,6 +1,3 @@
-import setter
-
-
 class Category:
     name: str
     description: str
@@ -21,18 +18,17 @@ class Category:
         return f'{self.name} - общее количество продуктов: {self.quantity}'
 
     def add_product(self, NewProduct):
-        if isinstance(NewProduct, LawnGrass) or isinstance(NewProduct, Smartphone) or isinstance(NewProduct, Product):
+        if (isinstance(NewProduct, LawnGrass)
+                or isinstance(NewProduct, Smartphone)
+                or isinstance(NewProduct, Product)):
             self.products.append(NewProduct)
             self.products_count = len(self.products)
-            self.quantity += NewProduct.availability
+            self.quantity += (
+                NewProduct.availability)
         else:
-            raise TypeError('Можно добавлять только объекты класса Product или его подклассов')
-
-"""    @property
-    def printered(self):
-        for i in self.__products:
-            self.out += (f"{i.name}, {i.price}руб. Остаток: {i.availability}шт." + "\n")
-        return self.out"""
+            raise TypeError('Можно добавлять только '
+                            'объекты класса Product '
+                            'или его подклассов')
 
 
 class Product:
@@ -50,12 +46,15 @@ class Product:
         self._confirm_lower_price = False
 
     def __str__(self):
-        return f'{self.name}, {self.price} руб. Остаток: {self.availability} шт.'
+        return (f'{self.name}, '
+                f'{self.price} руб. Остаток: '
+                f'{self.availability} шт.')
 
     def __add__(self, other):
-        if type(self) != type(other):
+        if type(other) is not type(self):
             raise TypeError("Нельзя складывать товары разных видов")
-        return (self.price * self.availability) + (other.price * other.availability)
+        return ((self.price * self.availability) +
+                (other.price * other.availability))
 
     @classmethod
     def new_product(cls, product_data: dict):
@@ -67,7 +66,6 @@ class Product:
 
     @priced.setter
     def priced(self, new_price):
-        confirm = ''
         if not isinstance(new_price, (int, float)):
             raise TypeError('Цена должна быть числом')
         if new_price <= 0:
@@ -80,7 +78,8 @@ class Product:
 
 
 class Smartphone(Product):
-    def __init__(self, efficiency, model, memory, color, name, description, price, availability):
+    def __init__(self, efficiency, model, memory,
+                 color, name, description, price, availability):
         super().__init__(name, description, price, availability)
         self.efficiency = efficiency
         self.model = model
@@ -89,9 +88,9 @@ class Smartphone(Product):
 
 
 class LawnGrass(Product):
-    def __init__(self, country, germination_period, color, name, description, price, availability):
+    def __init__(self, country, germination_period,
+                 color, name, description, price, availability):
         super().__init__(name, description, price, availability)
         self.country = country
         self.germination_period = germination_period
         self.color = color
-
